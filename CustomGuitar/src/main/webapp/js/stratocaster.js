@@ -427,13 +427,7 @@ function chgFingerBoard(board) {
 }
 
 function chgPickupColor(color) {
-    scene.remove(pickup_cover);
-    guitar.remove(pickup_cover);
-    sloader.load(models + "pickup_cover.stl", function (geometry) {
-        var mat = new THREE.MeshPhongMaterial({color: color});
-        pickup_cover = new THREE.Mesh(geometry, mat);
-        setObjPosition(pickup_cover);
-    });
+    pickup_cover.material = new THREE.MeshPhongMaterial({color: color});
 }
 
 function chgPickguardColor(color) {
@@ -499,41 +493,11 @@ function chgPickguardColor(color) {
 }
 
 function chgControlColor(color) {
-    scene.remove(volume1);
-    guitar.remove(volume1);
-    sloader.load(models + "volume1.stl", function (geometry) {
-        var mat = new THREE.MeshPhongMaterial({color: color});
-        volume1 = new THREE.Mesh(geometry, mat);
-        setObjPosition(volume1);
-    });
-    scene.remove(tone1);
-    guitar.remove(tone1);
-    sloader.load(models + "tone1.stl", function (geometry) {
-        var mat = new THREE.MeshPhongMaterial({color: color});
-        tone1 = new THREE.Mesh(geometry, mat);
-        setObjPosition(tone1);
-    });
-    scene.remove(tone2);
-    guitar.remove(tone2);
-    sloader.load(models + "tone2.stl", function (geometry) {
-        var mat = new THREE.MeshPhongMaterial({color: color});
-        tone2 = new THREE.Mesh(geometry, mat);
-        setObjPosition(tone2);
-    });
-    scene.remove(tip);
-    guitar.remove(tip);
-    sloader.load(models + "tip.stl", function (geometry) {
-        var mat = new THREE.MeshPhongMaterial({color: color});
-        tip = new THREE.Mesh(geometry, mat);
-        setObjPosition(tip);
-    });
-    scene.remove(arm_cup);
-    guitar.remove(arm_cup);
-    sloader.load(models + "arm_cup.stl", function (geometry) {
-        var mat = new THREE.MeshPhongMaterial({color: color});
-        arm_cup = new THREE.Mesh(geometry, mat);
-        setObjPosition(arm_cup);
-    });
+    volume1.material = new THREE.MeshPhongMaterial({color: color});
+    tone1.material = new THREE.MeshPhongMaterial({color: color});
+    tone2.material = new THREE.MeshPhongMaterial({color: color});
+    tip.material = new THREE.MeshPhongMaterial({color: color});
+    arm_cup.material = new THREE.MeshPhongMaterial({color: color});
 }
 
 function chgHardwareColor(color) {
@@ -544,59 +508,14 @@ function chgHardwareColor(color) {
     }
     envMaterial.metalness = 1;
 
-    scene.remove(string_st);
-    guitar.remove(string_st);
-    sloader.load(models + "string_st.stl", function (geometry) {
-        string_st = new THREE.Mesh(geometry, envMaterial);
-        setObjPosition(string_st);
-    });
-    scene.remove(pickup_screw);
-    guitar.remove(pickup_screw);
-    sloader.load(models + "pickup_screw.stl", function (geometry) {
-        pickup_screw = new THREE.Mesh(geometry, envMaterial);
-        setObjPosition(pickup_screw);
-    });
-    scene.remove(pickguard_screw);
-    guitar.remove(pickguard_screw);
-    sloader.load(models + "pickguard_screw.stl", function (geometry) {
-        pickguard_screw = new THREE.Mesh(geometry, envMaterial);
-        setObjPosition(pickguard_screw);
-    });
-    scene.remove(tuner);
-    guitar.remove(tuner);
-    sloader.load(models + "tuner.stl", function (geometry) {
-        tuner = new THREE.Mesh(geometry, envMaterial);
-        setObjPosition(tuner);
-    });
-    scene.remove(tremolo);
-    guitar.remove(tremolo);
-    sloader.load(models + "tremolo.stl", function (geometry) {
-        tremolo = new THREE.Mesh(geometry, envMaterial);
-        setObjPosition(tremolo);
-    });
-    scene.remove(output);
-    guitar.remove(output);
-    sloader.load(models + "output.stl", function (geometry) {
-        output = new THREE.Mesh(geometry, envMaterial);
-        setObjPosition(output);
-    });
-    scene.remove(neck_plate);
-    guitar.remove(neck_plate);
-    sloader.load(models + "neck_plate.stl", function (geometry) {
-        neck_plate = new THREE.Mesh(geometry, envMaterial);
-        setObjPosition(neck_plate);
-    });
-    scene.remove(strap_btn);
-    guitar.remove(strap_btn);
-    sloader.load(models + "strap_btn.stl", function (geometry) {
-        strap_btn = new THREE.Mesh(geometry, envMaterial);
-        setObjPosition(strap_btn);
-    });
-    scene.remove(body_plate_screw);
-    guitar.remove(body_plate_screw);
-    sloader.load(models + "body_plate_screw.stl", function (geometry) {
-        body_plate_screw = new THREE.Mesh(geometry, envMaterial);
-        setObjPosition(body_plate_screw);
-    });
+    string_st.material = envMaterial;
+    pickup_screw.material = envMaterial;
+    pickguard_screw.material = envMaterial;
+    tuner.material = envMaterial;
+    tremolo.material = envMaterial;
+    output.material = envMaterial;
+    neck_plate.material = envMaterial;
+    strap_btn.material = envMaterial;
+    body_plate_screw.material = envMaterial;
 
 }
