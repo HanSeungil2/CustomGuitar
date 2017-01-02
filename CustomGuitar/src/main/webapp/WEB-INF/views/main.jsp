@@ -48,7 +48,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="index.html">Custom Guitar</a>
+            <a class="navbar-brand" href="/">Custom Guitar</a>
         </div>
         <!-- /.navbar-header -->
 
@@ -74,7 +74,7 @@
             <div class="sidebar-nav navbar-collapse">
                 <ul class="nav" id="side-menu">
                     <li style="font-size: 17px">
-                        <a href="index.html"><i class="fa fa-music fa-fw"></i> STRATOCASTER®</a>
+                        <a href="/"><i class="fa fa-music fa-fw"></i> STRATOCASTER®</a>
                     </li>
                     <li>
                         <a href="#" onclick="javascript:bodyDtl()"><i class="fa fa-star fa-fw"></i> Body</a>
