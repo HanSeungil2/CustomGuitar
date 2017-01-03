@@ -143,9 +143,9 @@ function setObjPosition(dae) {
     dae.rotation.y = 1.0 * Math.PI;
     dae.position.x = 50;
     dae.scale.set(0.6, 0.6, 0.6);
-    //dae.updateMatrix();
+    dae.updateMatrix();
 
-    guitar.add(dae);
+    //guitar.add(dae);
     scene.add(dae);
 }
 
