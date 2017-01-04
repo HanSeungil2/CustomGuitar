@@ -646,5 +646,4 @@ function chgHardwareColor(color) {
     neck_plate.material = envMaterial;
     strap_btn.material = envMaterial;
     body_plate_screw.material = envMaterial;
-
 }
