@@ -496,14 +496,16 @@ function chgNeck(board) {
         //     neck = collada.scene;
         //     setObjPosition(neck);
         // });
-        var mat = new THREE.MeshPhongMaterial();
-        var textureLoader = new THREE.TextureLoader();
-        var texture = textureLoader.load( textures + "crop_wood-098.jpg" );
-        mat.map = texture;
-        bufferGeometry = new THREE.BufferGeometry().fromGeometry( geometry );
-        neck = new THREE.Mesh(bufferGeometry, mat);
-        setObjPosition(neck);
-        $("#WebGL-info").text(info);
+    	sloader.load(models + "neck.stl", function (geometry) {
+            var mat = new THREE.MeshPhongMaterial();
+            var textureLoader = new THREE.TextureLoader();
+            var texture = textureLoader.load( textures + "crop_wood-098.jpg" );
+            mat.map = texture;
+            bufferGeometry = new THREE.BufferGeometry().fromGeometry( geometry );
+            neck = new THREE.Mesh(bufferGeometry, mat);
+            setObjPosition(neck);
+            $("#WebGL-info").text(info);
+        });
     }
 }
 
@@ -598,7 +600,11 @@ function chgPickguardColor(color) {
             });
             sloader.load(models + "pickguard2.stl", function (geometry) {
                 var mat;
-                mat = new THREE.MeshPhongMaterial({color: 0x000000});
+                if(color == "#000000") { 
+                	mat = new THREE.MeshPhongMaterial({color: 0xffffff});
+                } else {
+                	mat = new THREE.MeshPhongMaterial({color: 0x000000});
+                }
                 bufferGeometry = new THREE.BufferGeometry().fromGeometry( geometry );
                 pickguard2 = new THREE.Mesh(bufferGeometry, mat);
                 setObjPosition(pickguard2);
