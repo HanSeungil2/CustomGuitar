@@ -109,7 +109,7 @@
 
     <div id="page-wrapper" style="height: 786px">
         <div class="col-lg-12">
-            <div id="WebGL-info" style="position:absolute; width:100%; text-align:center; zIndex:100;"></div>
+            <div id="WebGL-info" style="position:absolute; width:100%; text-align:center; zIndex:100;">Loading...</div>
             <div class="row" id="WebGL-output" style="cursor:all-scroll;"></div>
         </div>
         <!-- Body -->
@@ -385,7 +385,7 @@
 <script src="../vendor/sb-admin/js/sb-admin-2.js"></script>
 
 <!-- Javascript code that runs our Three.js -->
-<script type="text/javascript" src="../libs/three.js"></script>
+<script type="text/javascript" src="../libs/three.min.js"></script>
 <script type="text/javascript" src="../libs/STLLoader.js"></script>
 <script type="text/javascript" src="../libs/OrbitControls.js"></script>
 <script type="text/javascript" src="../libs/ColladaLoader.js"></script>

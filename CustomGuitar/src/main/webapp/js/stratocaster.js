@@ -11,6 +11,7 @@ var camera,
     textureCube,
     envMaterial,
     info,
+    bufferGeometry,
     mat;
 
 var divWidth = window.innerWidth - 312;
@@ -84,7 +85,7 @@ function setStratocaster() {
     oloader = new THREE.ColladaLoader();
     sloader = new THREE.STLLoader();
 
-    waitingDialog.show();
+    //waitingDialog.show();
 
     // Body
     setBody();
@@ -111,10 +112,9 @@ function setStratocaster() {
         renderer.render( scene, camera );
 
         $('.progress-bar').css('width', Math.round(count*3.7)+'%').attr('aria-valuenow', Math.round(count*3.7));
-
         if(count == 27) {
-            $('.progress-bar').css('width', '100%').attr('aria-valuenow', 100);
-            waitingDialog.hide();
+            //$('.progress-bar').css('width', '100%').attr('aria-valuenow', 100);
+            //waitingDialog.hide();
             $("#WebGL-info").text("MOVE mouse & press : LEFT/A: rotate,  MIDDLE/S: zoom,  RIGHT/D: pan");
             count = 0;
         }
@@ -143,7 +143,7 @@ function setObjPosition(dae) {
     dae.rotation.y = 1.0 * Math.PI;
     dae.position.x = 50;
     dae.scale.set(0.6, 0.6, 0.6);
-    dae.updateMatrix();
+    //dae.updateMatrix();
 
     //guitar.add(dae);
     scene.add(dae);
@@ -169,7 +169,8 @@ function setBody() {
     sloader.load(models + "body.stl", function (geometry) {
         var mat = new THREE.MeshPhongMaterial({color: 0x3f5c94});
         mat.shininess = 300;
-        body = new THREE.Mesh(geometry, mat);
+        bufferGeometry = new THREE.BufferGeometry().fromGeometry( geometry );
+        body = new THREE.Mesh(bufferGeometry, mat);
         count++;
         setObjPosition(body);
     });
@@ -177,8 +178,18 @@ function setBody() {
 
 // Neck
 function setNeck() {
-    oloader.load(models + "maple_neck.dae", function (collada) {
-        neck = collada.scene;
+    // oloader.load(models + "maple_neck.dae", function (collada) {
+    //     neck = collada.scene;
+    //     count++;
+    //     setObjPosition(neck);
+    // });
+    sloader.load(models + "neck.stl", function (geometry) {
+        var mat = new THREE.MeshPhongMaterial();
+        var textureLoader = new THREE.TextureLoader();
+        var texture = textureLoader.load( textures + "crop_wood-098.jpg" );
+        mat.map = texture;
+        bufferGeometry = new THREE.BufferGeometry().fromGeometry( geometry );
+        neck = new THREE.Mesh(bufferGeometry, mat);
         count++;
         setObjPosition(neck);
     });
@@ -187,7 +198,8 @@ function setNeck() {
         var textureLoader = new THREE.TextureLoader();
         var texture = textureLoader.load( textures + "crop_wood-071.jpg" );
         mat.map = texture;
-        truss_cover = new THREE.Mesh(geometry, mat);
+        bufferGeometry = new THREE.BufferGeometry().fromGeometry( geometry );
+        truss_cover = new THREE.Mesh(bufferGeometry, mat);
         count++;
         setObjPosition(truss_cover);
     });
@@ -196,7 +208,8 @@ function setNeck() {
         var textureLoader = new THREE.TextureLoader();
         var texture = textureLoader.load( textures + "crop_wood-071.jpg" );
         mat.map = texture;
-        truss_tip = new THREE.Mesh(geometry, mat);
+        bufferGeometry = new THREE.BufferGeometry().fromGeometry( geometry );
+        truss_tip = new THREE.Mesh(bufferGeometry, mat);
         count++;
         setObjPosition(truss_tip);
     });
@@ -208,18 +221,21 @@ function setNeck() {
     sloader.load(models + "fret.stl", function (geometry) {
         var mat = new THREE.MeshPhongMaterial({color: 0xe5eaed});
         mat.metalness = 1;
-        fret = new THREE.Mesh(geometry, mat);
+        bufferGeometry = new THREE.BufferGeometry().fromGeometry( geometry );
+        fret = new THREE.Mesh(bufferGeometry, mat);
         count++;
         setObjPosition(fret);
     });
     sloader.load(models + "string_st.stl", function (geometry) {
-        string_st = new THREE.Mesh(geometry, envMaterial);
+        bufferGeometry = new THREE.BufferGeometry().fromGeometry( geometry );
+        string_st = new THREE.Mesh(bufferGeometry, envMaterial);
         count++;
         setObjPosition(string_st);
     });
     sloader.load(models + "nut.stl", function (geometry) {
         var mat = new THREE.MeshPhongMaterial({color: 0xffffff});
-        nut = new THREE.Mesh(geometry, mat);
+        bufferGeometry = new THREE.BufferGeometry().fromGeometry( geometry );
+        nut = new THREE.Mesh(bufferGeometry, mat);
         count++;
         setObjPosition(nut);
     });
@@ -228,7 +244,8 @@ function setNeck() {
 // Tuner
 function setTuner(){
     sloader.load(models + "tuner.stl", function (geometry) {
-        tuner = new THREE.Mesh(geometry, envMaterial);
+        bufferGeometry = new THREE.BufferGeometry().fromGeometry( geometry );
+        tuner = new THREE.Mesh(bufferGeometry, envMaterial);
         count++;
         setObjPosition(tuner);
     });
@@ -251,13 +268,15 @@ function setTremolo(){
     //     setObjPosition(arm_cup);
     // });
     sloader.load(models + "tremolo.stl", function (geometry) {
-        tremolo = new THREE.Mesh(geometry, envMaterial);
+        bufferGeometry = new THREE.BufferGeometry().fromGeometry( geometry );
+        tremolo = new THREE.Mesh(bufferGeometry, envMaterial);
         count++;
         setObjPosition(tremolo);
     });
     sloader.load(models + "arm_cup.stl", function (geometry) {
         var mat = new THREE.MeshPhongMaterial({color: 0xffffff});
-        arm_cup = new THREE.Mesh(geometry, mat);
+        bufferGeometry = new THREE.BufferGeometry().fromGeometry( geometry );
+        arm_cup = new THREE.Mesh(bufferGeometry, mat);
         count++;
         setObjPosition(arm_cup);
     });
@@ -267,17 +286,20 @@ function setTremolo(){
 function setPickup(){
     sloader.load(models + "pickup_cover.stl", function (geometry) {
         var mat = new THREE.MeshPhongMaterial({color: 0xffffff});
-        pickup_cover = new THREE.Mesh(geometry, mat);
+        bufferGeometry = new THREE.BufferGeometry().fromGeometry( geometry );
+        pickup_cover = new THREE.Mesh(bufferGeometry, mat);
         count++;
         setObjPosition(pickup_cover);
     });
     sloader.load(models + "poll.stl", function (geometry) {
-        poll = new THREE.Mesh(geometry, envMaterial);
+        bufferGeometry = new THREE.BufferGeometry().fromGeometry( geometry );
+        poll = new THREE.Mesh(bufferGeometry, envMaterial);
         count++;
         setObjPosition(poll);
     });
     sloader.load(models + "pickup_screw.stl", function (geometry) {
-        pickup_screw = new THREE.Mesh(geometry, envMaterial);
+        bufferGeometry = new THREE.BufferGeometry().fromGeometry( geometry );
+        pickup_screw = new THREE.Mesh(bufferGeometry, envMaterial);
         count++;
         setObjPosition(pickup_screw);
     });
@@ -287,12 +309,14 @@ function setPickup(){
 function setPickguard() {
     sloader.load(models + "pickguard.stl", function (geometry) {
         var mat = new THREE.MeshPhongMaterial({color: 0xffffff});
-        pickguard = new THREE.Mesh(geometry, mat);
+        bufferGeometry = new THREE.BufferGeometry().fromGeometry( geometry );
+        pickguard = new THREE.Mesh(bufferGeometry, mat);
         count++;
         setObjPosition(pickguard);
     });
     sloader.load(models + "pickguard_screw.stl", function (geometry) {
-        pickguard_screw = new THREE.Mesh(geometry, envMaterial);
+        bufferGeometry = new THREE.BufferGeometry().fromGeometry( geometry );
+        pickguard_screw = new THREE.Mesh(bufferGeometry, envMaterial);
         count++;
         setObjPosition(pickguard_screw);
     });
@@ -302,32 +326,37 @@ function setPickguard() {
 function setControl(){
     sloader.load(models + "volume1.stl", function (geometry) {
         var mat = new THREE.MeshPhongMaterial({color: 0xffffff});
-        volume1 = new THREE.Mesh(geometry, mat);
+        bufferGeometry = new THREE.BufferGeometry().fromGeometry( geometry );
+        volume1 = new THREE.Mesh(bufferGeometry, mat);
         count++;
         setObjPosition(volume1);
     });
     sloader.load(models + "tone1.stl", function (geometry) {
         var mat = new THREE.MeshPhongMaterial({color: 0xffffff});
-        tone1 = new THREE.Mesh(geometry, mat);
+        bufferGeometry = new THREE.BufferGeometry().fromGeometry( geometry );
+        tone1 = new THREE.Mesh(bufferGeometry, mat);
         count++;
         setObjPosition(tone1);
     });
     sloader.load(models + "tone2.stl", function (geometry) {
         var mat = new THREE.MeshPhongMaterial({color: 0xffffff});
-        tone2 = new THREE.Mesh(geometry, mat);
+        bufferGeometry = new THREE.BufferGeometry().fromGeometry( geometry );
+        tone2 = new THREE.Mesh(bufferGeometry, mat);
         count++;
         setObjPosition(tone2);
     });
     sloader.load(models + "5way.stl", function (geometry) {
         var mat = new THREE.MeshStandardMaterial({color: 0xe5eaed});
         mat.metalness = 1;
-        way5 = new THREE.Mesh(geometry, mat);
+        bufferGeometry = new THREE.BufferGeometry().fromGeometry( geometry );
+        way5 = new THREE.Mesh(bufferGeometry, mat);
         count++;
         setObjPosition(way5);
     });
     sloader.load(models + "tip.stl", function (geometry) {
         var mat = new THREE.MeshPhongMaterial({color: 0xffffff});
-        tip = new THREE.Mesh(geometry, mat);
+        bufferGeometry = new THREE.BufferGeometry().fromGeometry( geometry );
+        tip = new THREE.Mesh(bufferGeometry, mat);
         count++;
         setObjPosition(tip);
     });
@@ -336,34 +365,40 @@ function setControl(){
 // Etc
 function setEtc(){
     sloader.load(models + "output.stl", function (geometry) {
-        output = new THREE.Mesh(geometry, envMaterial);
+        bufferGeometry = new THREE.BufferGeometry().fromGeometry( geometry );
+        output = new THREE.Mesh(bufferGeometry, envMaterial);
         count++;
         setObjPosition(output);
     });
     sloader.load(models + "neck_plate.stl", function (geometry) {
-        neck_plate = new THREE.Mesh(geometry, envMaterial);
+        bufferGeometry = new THREE.BufferGeometry().fromGeometry( geometry );
+        neck_plate = new THREE.Mesh(bufferGeometry, envMaterial);
         count++;
         setObjPosition(neck_plate);
     });
     sloader.load(models + "strap_btn.stl", function (geometry) {
-        strap_btn = new THREE.Mesh(geometry, envMaterial);
+        bufferGeometry = new THREE.BufferGeometry().fromGeometry( geometry );
+        strap_btn = new THREE.Mesh(bufferGeometry, envMaterial);
         count++;
         setObjPosition(strap_btn);
     });
     sloader.load(models + "body_plate.stl", function (geometry) {
         var mat = new THREE.MeshPhongMaterial({color: 0xffffff});
-        body_plate = new THREE.Mesh(geometry, mat);
+        bufferGeometry = new THREE.BufferGeometry().fromGeometry( geometry );
+        body_plate = new THREE.Mesh(bufferGeometry, mat);
         count++;
         setObjPosition(body_plate);
     });
     sloader.load(models + "body_plate_screw.stl", function (geometry) {
-        body_plate_screw = new THREE.Mesh(geometry, envMaterial);
+        bufferGeometry = new THREE.BufferGeometry().fromGeometry( geometry );
+        body_plate_screw = new THREE.Mesh(bufferGeometry, envMaterial);
         count++;
         setObjPosition(body_plate_screw);
     });
     sloader.load(models + "string.stl", function (geometry) {
         var mat = new THREE.MeshPhongMaterial({color: 0xcfcfcf});
-        string = new THREE.Mesh(geometry, mat);
+        bufferGeometry = new THREE.BufferGeometry().fromGeometry( geometry );
+        string = new THREE.Mesh(bufferGeometry, mat);
         count++;
         setObjPosition(string);
     });
@@ -387,7 +422,8 @@ function chgBodyColor(color) {
         sloader.load(models + "body.stl", function (geometry) {
             var mat = new THREE.MeshPhongMaterial({color: color});
             mat.shininess = 180;
-            body = new THREE.Mesh(geometry, mat);
+            bufferGeometry = new THREE.BufferGeometry().fromGeometry( geometry );
+            body = new THREE.Mesh(bufferGeometry, mat);
             setObjPosition(body);
         });
     }
@@ -450,7 +486,8 @@ function chgPickguardColor(color) {
             var mat = new THREE.MeshPhongMaterial()
             mat.shininess = 500;
             mat.map = texture;
-            pickguard = new THREE.Mesh(geometry, mat);
+            bufferGeometry = new THREE.BufferGeometry().fromGeometry( geometry );
+            pickguard = new THREE.Mesh(bufferGeometry, mat);
             setObjPosition(pickguard);
         });
     } else if(color == "Tortoise") {
@@ -463,31 +500,36 @@ function chgPickguardColor(color) {
         if($('#pickguard option:selected').val() == '1ply') {
             sloader.load(models + "pickguard.stl", function (geometry) {
                 var mat = new THREE.MeshPhongMaterial({color: color});
-                pickguard = new THREE.Mesh(geometry, mat);
+                bufferGeometry = new THREE.BufferGeometry().fromGeometry( geometry );
+                pickguard = new THREE.Mesh(bufferGeometry, mat);
                 setObjPosition(pickguard);
             });
         } else {
             sloader.load(models + "pickguard1.stl", function (geometry) {
                 var mat = new THREE.MeshPhongMaterial({color: color});
-                pickguard1 = new THREE.Mesh(geometry, mat);
+                bufferGeometry = new THREE.BufferGeometry().fromGeometry( geometry );
+                pickguard1 = new THREE.Mesh(bufferGeometry, mat);
                 setObjPosition(pickguard1);
             });
             sloader.load(models + "pickguard2.stl", function (geometry) {
                 var mat;
                 mat = new THREE.MeshPhongMaterial({color: 0x000000});
-                pickguard2 = new THREE.Mesh(geometry, mat);
+                bufferGeometry = new THREE.BufferGeometry().fromGeometry( geometry );
+                pickguard2 = new THREE.Mesh(bufferGeometry, mat);
                 setObjPosition(pickguard2);
             });
             sloader.load(models + "pickguard3.stl", function (geometry) {
                 var mat = new THREE.MeshPhongMaterial({color: color});
-                pickguard3 = new THREE.Mesh(geometry, mat);
+                bufferGeometry = new THREE.BufferGeometry().fromGeometry( geometry );
+                pickguard3 = new THREE.Mesh(bufferGeometry, mat);
                 setObjPosition(pickguard3);
             });
         }
     }
     sloader.load(models + "body_plate.stl", function (geometry) {
         var mat = new THREE.MeshPhongMaterial({color: color});
-        body_plate = new THREE.Mesh(geometry, mat);
+        bufferGeometry = new THREE.BufferGeometry().fromGeometry( geometry );
+        body_plate = new THREE.Mesh(bufferGeometry, mat);
         setObjPosition(body_plate);
     });
 }
