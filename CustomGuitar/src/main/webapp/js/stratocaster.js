@@ -174,6 +174,16 @@ function setBody() {
         count++;
         setObjPosition(body);
     });
+    // new THREE.ObjectLoader().load(models + "body.json", function (object ) {
+    //     body = object ;
+    //     body.traverse(function (child) {
+    //         if (child instanceof THREE.Mesh) {
+    //             child.geometry = new THREE.BufferGeometry().fromGeometry( child.geometry );
+    //         }
+    //     });
+    //     count++;
+    //     setObjPosition(body);
+    // });
 }
 
 // Neck
@@ -213,8 +223,18 @@ function setNeck() {
         count++;
         setObjPosition(truss_tip);
     });
-    oloader.load(models + "maple_finger.dae", function (collada) {
-        fingerboard = collada.scene;
+    // oloader.load(models + "maple_finger.dae", function (collada) {
+    //     fingerboard = collada.scene;
+    //     count++;
+    //     setObjPosition(fingerboard);
+    // });
+    new THREE.ObjectLoader().load(models + "maple_finger.json", function (object ) {
+        fingerboard = object ;
+        fingerboard.traverse(function (child) {
+            if (child instanceof THREE.Mesh) {
+                child.geometry = new THREE.BufferGeometry().fromGeometry( child.geometry );
+            }
+        });
         count++;
         setObjPosition(fingerboard);
     });
@@ -406,16 +426,34 @@ function setEtc(){
 
 function chgBodyColor(color) {
     scene.remove(body);
-    guitar.remove(body);
+    //guitar.remove(body);
 
     if(color == "#8B4513") {
-        oloader.load(models + "body.dae", function (collada) {
-            body = collada.scene;
+        // oloader.load(models + "body.dae", function (collada) {
+        //     body = collada.scene;
+        //     setObjPosition(body);
+        // });
+        new THREE.ObjectLoader().load(models + "body.json", function (object ) {
+            body = object ;
+            body.traverse(function (child) {
+                if (child instanceof THREE.Mesh) {
+                    child.geometry = new THREE.BufferGeometry().fromGeometry( child.geometry );
+                }
+            });
             setObjPosition(body);
         });
     } else if(color == "#C19A6B") {
-        oloader.load(models + "natural_body.dae", function (collada) {
-            body = collada.scene;
+        // oloader.load(models + "natural_body.dae", function (collada) {
+        //     body = collada.scene;
+        //     setObjPosition(body);
+        // });
+        new THREE.ObjectLoader().load(models + "natural_body.json", function (object ) {
+            body = object ;
+            body.traverse(function (child) {
+                if (child instanceof THREE.Mesh) {
+                    child.geometry = new THREE.BufferGeometry().fromGeometry( child.geometry );
+                }
+            });
             setObjPosition(body);
         });
     } else {
@@ -432,31 +470,65 @@ function chgBodyColor(color) {
 
 function chgNeck(board) {
     scene.remove(neck);
-    guitar.remove(neck);
+    //guitar.remove(neck);
     if(board == "rosewood") {
-        oloader.load(models + "rose_neck.dae", function (collada) {
-            neck = collada.scene;
+        // oloader.load(models + "rose_neck.dae", function (collada) {
+        //     neck = collada.scene;
+        //     setObjPosition(neck);
+        // });
+        sloader.load(models + "neck.stl", function (geometry) {
+            var mat = new THREE.MeshPhongMaterial();
+            var textureLoader = new THREE.TextureLoader();
+            var texture = textureLoader.load( textures + "crop_wood-071.jpg" );
+            mat.map = texture;
+            bufferGeometry = new THREE.BufferGeometry().fromGeometry( geometry );
+            neck = new THREE.Mesh(bufferGeometry, mat);
             setObjPosition(neck);
         });
     } else if(board == "maple") {
-        oloader.load(models + "maple_neck.dae", function (collada) {
-            neck = collada.scene;
-            setObjPosition(neck);
-        });
+        // oloader.load(models + "maple_neck.dae", function (collada) {
+        //     neck = collada.scene;
+        //     setObjPosition(neck);
+        // });
+        var mat = new THREE.MeshPhongMaterial();
+        var textureLoader = new THREE.TextureLoader();
+        var texture = textureLoader.load( textures + "crop_wood-098.jpg" );
+        mat.map = texture;
+        bufferGeometry = new THREE.BufferGeometry().fromGeometry( geometry );
+        neck = new THREE.Mesh(bufferGeometry, mat);
+        setObjPosition(neck);
     }
 }
 
 function chgFingerBoard(board) {
     scene.remove(fingerboard);
-    guitar.remove(fingerboard);
+    //guitar.remove(fingerboard);
     if(board == "rosewood") {
-        oloader.load(models + "rose_finger.dae", function (collada) {
-            fingerboard = collada.scene;
+        // oloader.load(models + "rose_finger.dae", function (collada) {
+        //     fingerboard = collada.scene;
+        //     setObjPosition(fingerboard);
+        // });
+        new THREE.ObjectLoader().load(models + "rose_finger.json", function (object ) {
+            fingerboard = object ;
+            fingerboard.traverse(function (child) {
+                if (child instanceof THREE.Mesh) {
+                    child.geometry = new THREE.BufferGeometry().fromGeometry( child.geometry );
+                }
+            });
             setObjPosition(fingerboard);
         });
     } else if(board == "maple") {
-        oloader.load(models + "maple_finger.dae", function (collada) {
-            fingerboard = collada.scene;
+        // oloader.load(models + "maple_finger.dae", function (collada) {
+        //     fingerboard = collada.scene;
+        //     setObjPosition(fingerboard);
+        // });
+        new THREE.ObjectLoader().load(models + "maple_finger.json", function (object ) {
+            fingerboard = object ;
+            fingerboard.traverse(function (child) {
+                if (child instanceof THREE.Mesh) {
+                    child.geometry = new THREE.BufferGeometry().fromGeometry( child.geometry );
+                }
+            });
             setObjPosition(fingerboard);
         });
     }
@@ -468,15 +540,15 @@ function chgPickupColor(color) {
 
 function chgPickguardColor(color) {
     scene.remove(pickguard);
-    guitar.remove(pickguard);
+    //guitar.remove(pickguard);
     scene.remove(pickguard1);
-    guitar.remove(pickguard1);
+    //guitar.remove(pickguard1);
     scene.remove(pickguard2);
-    guitar.remove(pickguard2);
+    //guitar.remove(pickguard2);
     scene.remove(pickguard3);
-    guitar.remove(pickguard3);
+    //guitar.remove(pickguard3);
     scene.remove(body_plate);
-    guitar.remove(body_plate);
+    //guitar.remove(body_plate);
 
     if(color == "Gold") {
         sloader.load(models + "pickguard.stl", function (geometry) {
