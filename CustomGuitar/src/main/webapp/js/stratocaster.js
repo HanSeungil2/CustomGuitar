@@ -1,5 +1,7 @@
 var models = "../assets/models/";
 var textures = "../assets/textures/";
+var info = "MOVE mouse & press : LEFT/A: rotate,  MIDDLE/S: zoom,  RIGHT/D: pan";
+var loading = "Loading...";
 var scene;
 var camera,
     renderer,
@@ -10,7 +12,6 @@ var camera,
     textureLoader,
     textureCube,
     envMaterial,
-    info,
     bufferGeometry,
     mat;
 
@@ -115,7 +116,7 @@ function setStratocaster() {
         if(count == 27) {
             //$('.progress-bar').css('width', '100%').attr('aria-valuenow', 100);
             //waitingDialog.hide();
-            $("#WebGL-info").text("MOVE mouse & press : LEFT/A: rotate,  MIDDLE/S: zoom,  RIGHT/D: pan");
+            $("#WebGL-info").text(info);
             count = 0;
         }
     }
@@ -425,9 +426,9 @@ function setEtc(){
 }
 
 function chgBodyColor(color) {
+    $("#WebGL-info").text(loading);
     scene.remove(body);
     //guitar.remove(body);
-
     if(color == "#8B4513") {
         // oloader.load(models + "body.dae", function (collada) {
         //     body = collada.scene;
@@ -441,6 +442,7 @@ function chgBodyColor(color) {
                 }
             });
             setObjPosition(body);
+            $("#WebGL-info").text(info);
         });
     } else if(color == "#C19A6B") {
         // oloader.load(models + "natural_body.dae", function (collada) {
@@ -455,6 +457,7 @@ function chgBodyColor(color) {
                 }
             });
             setObjPosition(body);
+            $("#WebGL-info").text(info);
         });
     } else {
         sloader.load(models + "body.stl", function (geometry) {
@@ -463,12 +466,14 @@ function chgBodyColor(color) {
             bufferGeometry = new THREE.BufferGeometry().fromGeometry( geometry );
             body = new THREE.Mesh(bufferGeometry, mat);
             setObjPosition(body);
+            $("#WebGL-info").text(info);
         });
     }
 
 }
 
 function chgNeck(board) {
+    $("#WebGL-info").text(loading);
     scene.remove(neck);
     //guitar.remove(neck);
     if(board == "rosewood") {
@@ -484,6 +489,7 @@ function chgNeck(board) {
             bufferGeometry = new THREE.BufferGeometry().fromGeometry( geometry );
             neck = new THREE.Mesh(bufferGeometry, mat);
             setObjPosition(neck);
+            $("#WebGL-info").text(info);
         });
     } else if(board == "maple") {
         // oloader.load(models + "maple_neck.dae", function (collada) {
@@ -497,10 +503,12 @@ function chgNeck(board) {
         bufferGeometry = new THREE.BufferGeometry().fromGeometry( geometry );
         neck = new THREE.Mesh(bufferGeometry, mat);
         setObjPosition(neck);
+        $("#WebGL-info").text(info);
     }
 }
 
 function chgFingerBoard(board) {
+    $("#WebGL-info").text(loading);
     scene.remove(fingerboard);
     //guitar.remove(fingerboard);
     if(board == "rosewood") {
@@ -516,6 +524,7 @@ function chgFingerBoard(board) {
                 }
             });
             setObjPosition(fingerboard);
+            $("#WebGL-info").text(info);
         });
     } else if(board == "maple") {
         // oloader.load(models + "maple_finger.dae", function (collada) {
@@ -530,6 +539,7 @@ function chgFingerBoard(board) {
                 }
             });
             setObjPosition(fingerboard);
+            $("#WebGL-info").text(info);
         });
     }
 }
@@ -539,6 +549,7 @@ function chgPickupColor(color) {
 }
 
 function chgPickguardColor(color) {
+    $("#WebGL-info").text(loading);
     scene.remove(pickguard);
     //guitar.remove(pickguard);
     scene.remove(pickguard1);
@@ -561,12 +572,13 @@ function chgPickguardColor(color) {
             bufferGeometry = new THREE.BufferGeometry().fromGeometry( geometry );
             pickguard = new THREE.Mesh(bufferGeometry, mat);
             setObjPosition(pickguard);
+            $("#WebGL-info").text(info);
         });
     } else if(color == "Tortoise") {
         oloader.load(models + "tortoise.dae", function (collada) {
             pickguard = collada.scene;
-            count++;
             setObjPosition(pickguard);
+            $("#WebGL-info").text(info);
         });
     } else {
         if($('#pickguard option:selected').val() == '1ply') {
@@ -575,6 +587,7 @@ function chgPickguardColor(color) {
                 bufferGeometry = new THREE.BufferGeometry().fromGeometry( geometry );
                 pickguard = new THREE.Mesh(bufferGeometry, mat);
                 setObjPosition(pickguard);
+                $("#WebGL-info").text(info);
             });
         } else {
             sloader.load(models + "pickguard1.stl", function (geometry) {
@@ -596,6 +609,7 @@ function chgPickguardColor(color) {
                 pickguard3 = new THREE.Mesh(bufferGeometry, mat);
                 setObjPosition(pickguard3);
             });
+            $("#WebGL-info").text(info);
         }
     }
     sloader.load(models + "body_plate.stl", function (geometry) {
@@ -603,6 +617,7 @@ function chgPickguardColor(color) {
         bufferGeometry = new THREE.BufferGeometry().fromGeometry( geometry );
         body_plate = new THREE.Mesh(bufferGeometry, mat);
         setObjPosition(body_plate);
+        $("#WebGL-info").text(info);
     });
 }
 
