@@ -137,7 +137,7 @@
                                 </a>
                             </div>
                             <div class = "col-sm-6 col-md-3" style="width:80px">
-                                <a href = "#" style="background:#ff0800" class = "thumbnail" data-toggle="tooltip" title="Candy Apple Red"  onclick="chgBodyColor('#ff0800')">
+                                <a href = "#" style="background:#880000" class = "thumbnail" data-toggle="tooltip" title="Candy Apple Red"  onclick="chgBodyColor('#880000')">
                                     &nbsp;
                                 </a>
                             </div>
