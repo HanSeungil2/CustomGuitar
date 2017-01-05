@@ -15,7 +15,7 @@ var camera,
     bufferGeometry,
     mat;
 
-var divWidth = window.innerWidth - 312;
+var divWidth = $(".col-lg-12").width() + 30;
 var divHeight = window.innerHeight - 200;
 var guitar = new THREE.Group();
 var body,neck,truss_cover,truss_tip,fingerboard,fret,string_st,nut,pickup_cover,poll,pickup_screw,
